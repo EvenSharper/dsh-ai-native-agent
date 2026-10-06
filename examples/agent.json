@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "repo": "C:/work/my-project",
+  "provider": {
+    "type": "harness"
+  },
+  "editable_paths": [
+    "src/**"
+  ],
+  "protected_paths": [
+    "tests/**",
+    "test_*.py",
+    "agent.json",
+    "system_record.json"
+  ],
+  "verification": [
+    {
+      "name": "tests",
+      "argv": [
+        "{python}",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "timeout_seconds": 60
+    }
+  ],
+  "max_rounds": 3
+}

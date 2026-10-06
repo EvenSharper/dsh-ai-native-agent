@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "domain_concepts": [],
+  "invariants": [],
+  "truth_sources": [],
+  "state_transitions": [],
+  "external_contracts": [],
+  "known_failure_modes": [],
+  "forbidden_simplifications": [],
+  "decisions": [],
+  "unknowns": [],
+  "knowledge": []
+}

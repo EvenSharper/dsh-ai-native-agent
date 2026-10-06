@@ -1,0 +1,11 @@
+# After installing the bundle. Replace all example paths and model identifiers.
+# Config replaces the entire row configuration; retain every custom setting here.
+- id: ai-native-agent
+  config:
+    python: python
+    provider: YOUR_HARNESS_PROVIDER_ID
+    model: YOUR_HARNESS_MODEL_ID
+    projects:
+      - id: my-project
+        configPath: C:/work/my-project-agent/agent.json
+    allowExecution: false
