@@ -6,7 +6,7 @@ Runs an existing Python AI Native Agent as a tool plugin for DeepSeek Harness. C
 
 Pinned to **Harness 0.2.0-rc.2 / Cordis 4.0.4**. Requires Node.js 22+ (for development builds), Python 3.11+ and Git. The prebuilt package already contains the Python core, so no pip install is needed and it does not depend on absolute paths from a development directory.
 
-## Rationale
+## Why do this
 
 The ability to write code can be delegated to a model. The **authority to change a real repository cannot**. Every design decision in this plugin serves that single distinction: the model only proposes and judges, deterministic code does the file writing, command running and knowledge persistence, and there are explicit gates between the two. The role prompts can be pointed at any model you like; the discipline does not change with it.
 
