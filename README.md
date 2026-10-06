@@ -9,13 +9,12 @@
 在本仓库根目录：
 
 ```powershell
-npm.cmd ci --prefix harness-plugin
-npm.cmd test --prefix harness-plugin
-Set-Location harness-plugin
+npm.cmd ci
+npm.cmd test
 npm.cmd pack
 ```
 
-得到 `dsh-ai-native-agent-0.1.0.tgz`。安装到你使用的 Harness profile，例如 web：
+得到 `dsh-ai-native-agent-0.1.0.tgz`。`npm run build` 生成 `lib/` 并从 `runtime/agent` 同步 Python 核心；作为独立仓库签出时，`runtime/agent` 已提交在版本库内，构建直接使用该副本。安装到你使用的 Harness profile，例如 web：
 
 ```powershell
 dsh plugin --profile web add C:/absolute/path/dsh-ai-native-agent-0.1.0.tgz
@@ -106,7 +105,7 @@ dsh web --patch C:/work/project.patch.yml
 
 ```powershell
 python -B -m unittest discover -s tests -v
-npm.cmd test --prefix harness-plugin
+npm.cmd test
 ```
 
 插件测试使用真实 Cordis、工具注册表、LLM 服务、Python 进程、Git 和验证命令；模型适配器提供明确标记的离线响应，不消耗 API 配额。覆盖失败后修订、知识保存、Guardian 阻断、关闭执行、路径边界、响应校验、取消验证进程、卸载清理和重新加载。真实供应商模型质量仍需使用你的 Harness 模型配置验证。
@@ -116,7 +115,7 @@ npm.cmd test --prefix harness-plugin
 - `src/index.ts`：Config、服务、三个工具、生命周期。
 - `src/llm.ts`：消费 Harness llm 流、检查完成状态。
 - `src/bridge.ts`：有界 JSON-lines、子进程、超时与取消。
-- `runtime/agent/`：构建时从根目录 `agent/` 复制的核心和提示词。
-- 根目录 `agent/harness_bridge.py`：Python 侧 provider 和运行桥接。
+- `runtime/agent/`：随包交付的 Python 核心和提示词。与上游核心仓库同目录开发时，构建会从 `../agent/` 或 `../agent/agent/` 重新复制；独立签出时直接使用此提交副本。
+- `runtime/agent/harness_bridge.py`：Python 侧 provider 和运行桥接。
 
 遵循官方文档：[第一个插件](https://deepseek-harness.github.io/deepseek-harness/develop/basic/)、[工具](https://deepseek-harness.github.io/deepseek-harness/develop/basic/tool)、[配置](https://deepseek-harness.github.io/deepseek-harness/develop/basic/config)、[打包安装](https://deepseek-harness.github.io/deepseek-harness/develop/basic/publish)、[工具编写契约](https://deepseek-harness.github.io/deepseek-harness/reference/cookbook/adding-a-tool)。共享 Harness 服务包使用 peerDependencies，并保留同版本 devDependencies 用于独立测试。

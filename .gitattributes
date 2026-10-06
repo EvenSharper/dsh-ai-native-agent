@@ -1,2 +1,26 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Force LF in the working tree for every text file this project reads or hashes.
+#
+# The agent core hashes candidate files with SHA-256 and verifies that an
+# exported patch still applies with `git apply --check`. Windows Git installs
+# commonly set core.autocrlf=true system-wide (see `git config --system
+# core.autocrlf`), which would otherwise check these files out as CRLF, make the
+# expected and actual content disagree, and fail verification for reasons that
+# have nothing to do with the code under review. `eol=lf` overrides autocrlf.
+* text=auto eol=lf
+
+# Prompt text is compared byte-for-byte against the packaged role prompts.
+runtime/agent/prompts/*.md text eol=lf
+*.py text eol=lf
+*.ts text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+
+# Git must never rewrite patch fixtures or these binary formats.
+*.patch -text
+*.png binary
+*.jpg binary
+*.tgz binary
