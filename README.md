@@ -1,5 +1,7 @@
 # AI Native Agent for DeepSeek Harness
 
+**中文** | [English](README.en.md)
+
 将现有 Python AI Native Agent 作为 Harness 的工具插件运行。Constructor、Critic、Guardian、学习提案和知识审查共用 Harness 的 `llm` 服务；原有 Git 副本、文件范围、真实验证、审计和 System Record 逻辑继续由 Python 核心执行。
 
 适配并固定到 **Harness 0.2.0-rc.2 / Cordis 4.0.4**。需要 Node.js 22+（开发构建）、Python 3.11+、Git。预构建包内已包含 Python 核心，不需要 pip 安装，也不依赖开发目录的绝对路径。
@@ -75,11 +77,16 @@ npm.cmd test
 npm.cmd pack
 ```
 
-得到 `dsh-ai-native-agent-0.1.0.tgz`。`npm run build` 生成 `lib/` 并从 `runtime/agent` 同步 Python 核心；作为独立仓库签出时，`runtime/agent` 已提交在版本库内，构建直接使用该副本。安装到你使用的 Harness profile，例如 web：
+得到 `dsh-ai-native-agent-0.1.0.tgz`。`npm run build` 生成 `lib/` 并从 `runtime/agent` 同步 Python 核心；作为独立仓库签出时，`runtime/agent` 已提交在版本库内，构建直接使用该副本。安装到你使用的 Harness profile（`web`、`desktop` 等，按你的 profile 名替换）：
 
 ```powershell
+# web profile
 dsh plugin --profile web add C:/absolute/path/dsh-ai-native-agent-0.1.0.tgz
 dsh --profile web --dump-config
+
+# desktop profile
+dsh plugin --profile desktop add C:/absolute/path/dsh-ai-native-agent-0.1.0.tgz
+dsh --profile desktop --dump-config
 ```
 
 manifest 的 `dsh.bundle.patch` 自动插入 ID 为 `ai-native-agent` 的插件行。默认项目列表为空、执行关闭，可以先安装再配置。这里交付预构建 tarball；不提供直接 Git 安装的 prepare 流程。
